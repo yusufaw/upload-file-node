@@ -1,11 +1,13 @@
 var express = require("express");
 var multer = require('multer');
+var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 var storage = multer.diskStorage({
     destination: (req, file, callback) => callback(null, './uploads'),
-    filename: (req, file, callback) => callback(null, file.fieldname + '-' + Date.now())
+    filename: (req, file, callback) => callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+	
 });
 var upload = multer({
     storage: storage
